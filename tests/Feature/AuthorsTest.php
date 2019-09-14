@@ -10,18 +10,17 @@ class AuthorsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** Test for changes in authors database table */
-    public function testAuthorTableChanges()
+    /** Asserting that a row in the table [authors] matches the attributes*/
+    public function testAuthorsTableHasAttributes()
     {
         $attributes = [
-            'author_name' => 'J.K. Rowling',
-            'date_of_borth' => '1945-02-16',
-            'author_address' => 'London'
+            'name' => 'J.K. Rowling',
+            'date_of_birth' => '1945-02-16',
+            'address' => 'London'
         ];
-        //passing necessarily data
+
         $this->post('/authors', $attributes);
 
-        //new author should be created
         $this->assertDatabaseHas('authors', $attributes);
     }
 }

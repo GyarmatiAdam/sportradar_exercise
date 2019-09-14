@@ -2,13 +2,21 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Model;
+use App\Authors;
+use App\Books;
 use Faker\Generator as Faker;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(Authors::class, function (Faker $faker) {
     return [
-        'author_name' => $faker->name,
-        'date_of_borth' => $faker->date,
-        'author_address' => $faker->address,
+        'name' => $faker->name,
+        'date_of_birth' => $faker->date,
+        'address' => $faker->address,
+    ];
+});
+
+$factory->define(Books::class, function (Faker $faker) {
+    return [
+        'name' => $faker->name,
+        'release_date' => $faker->date,
     ];
 });
