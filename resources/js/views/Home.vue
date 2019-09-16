@@ -34,6 +34,12 @@
                 <p class="card-text">{{ author.address }}</p>
             </div>
         </div>
+        <div class="card" v-for="book in books" v-bind:key="book.id">
+            <div class="card-body">
+                <h5 class="card-title">{{ book.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ book.release_date }}</h6>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -52,10 +58,23 @@ export default {
             pagination: {},
             edit: false
         };
+        return {
+            books: [],
+            book: {
+                id: '',
+                name: '',
+                release_date: '',
+                authors_id: ''
+            },
+            book_id: '',
+            pagination: {},
+            edit: false
+        };
     },
 
     created() {
         this.fetchAuthors();
+        this.fetchBooks();
     },
 
     methods: {
@@ -66,6 +85,17 @@ export default {
             .then(res => res.json())
             .then(res => {
                 this.authors = res.data;
+                vm.makepagination(res.data, res.links);
+            })
+            .catch(err => console.log(err));
+        },
+        fetchBooks(page_url) {
+            let vm =this;
+            page_url = page_url || 'api/books'
+            fetch(page_url)
+            .then(res => res.json())
+            .then(res => {
+                this.books = res.data;
                 vm.makepagination(res.data, res.links);
             })
             .catch(err => console.log(err));

@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AuthorsTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     /** Asserting that a row in the table [authors] matches the attributes*/
     public function testAuthorsTableHasAttributes()
@@ -26,7 +26,7 @@ class AuthorsTest extends TestCase
 
     public function testIfDataReturnOnJsonGetRequest()
     {
-        $response = $this->get('/');
+        $response = $this->get('/api/authors');
 
         $response->assertStatus(200);
     }

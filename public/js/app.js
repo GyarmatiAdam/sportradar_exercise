@@ -134,6 +134,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -148,9 +154,22 @@ __webpack_require__.r(__webpack_exports__);
       pagination: {},
       edit: false
     };
+    return {
+      books: [],
+      book: {
+        id: '',
+        name: '',
+        release_date: '',
+        authors_id: ''
+      },
+      book_id: '',
+      pagination: {},
+      edit: false
+    };
   },
   created: function created() {
     this.fetchAuthors();
+    this.fetchBooks();
   },
   methods: {
     fetchAuthors: function fetchAuthors(page_url) {
@@ -167,6 +186,20 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(err);
       });
     },
+    fetchBooks: function fetchBooks(page_url) {
+      var _this2 = this;
+
+      var vm = this;
+      page_url = page_url || 'api/books';
+      fetch(page_url).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        _this2.books = res.data;
+        vm.makepagination(res.data, res.links);
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
     makepagination: function makepagination(meta, links) {
       var pagination = {
         next_page_url: links.next,
@@ -175,7 +208,7 @@ __webpack_require__.r(__webpack_exports__);
       this.pagination = pagination;
     },
     addAuthor: function addAuthor() {
-      var _this2 = this;
+      var _this3 = this;
 
       fetch('api/author', {
         method: 'post',
@@ -186,12 +219,12 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         return res.json();
       }).then(function (data) {
-        _this2.author.name = '';
-        _this2.author.date_of_birth = '';
-        _this2.author.address = '';
+        _this3.author.name = '';
+        _this3.author.date_of_birth = '';
+        _this3.author.address = '';
         alert('Author added');
 
-        _this2.fetchAuthors();
+        _this3.fetchAuthors();
       })["catch"](function (err) {
         return alert(err);
       });
@@ -879,6 +912,20 @@ var render = function() {
             _vm._v(" "),
             _c("p", { staticClass: "card-text" }, [
               _vm._v(_vm._s(author.address))
+            ])
+          ])
+        ])
+      }),
+      _vm._v(" "),
+      _vm._l(_vm.books, function(book) {
+        return _c("div", { key: book.id, staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "card-title" }, [
+              _vm._v(_vm._s(book.name))
+            ]),
+            _vm._v(" "),
+            _c("h6", { staticClass: "card-subtitle mb-2 text-muted" }, [
+              _vm._v(_vm._s(book.release_date))
             ])
           ])
         ])

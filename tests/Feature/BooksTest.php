@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BooksTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     /** Asserting that a row in the table [books] matches the attributes*/
     public function testBooksTableHasAttributes()
