@@ -141,7 +141,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      authors: [],
+      author: {
+        id: '',
+        name: '',
+        date_of_birth: '',
+        address: ''
+      },
+      author_id: '',
+      pagination: {},
+      edit: false
+    };
+  },
+  created: function created() {
+    this.fetchAuthors();
+  },
+  methods: {
+    fetchAuthors: function fetchAuthors() {
+      var _this = this;
+
+      fetch('api/authors').then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        _this.authors = res.data;
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -656,7 +688,27 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("h3", [_vm._v("Data:")]),
+      _vm._v(" "),
+      _vm._l(_vm.authors, function(author) {
+        return _c("div", { key: author.id }, [
+          _c("h6", [_vm._v(_vm._s(author.name))]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(author.address))]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(author.date_of_birth))])
+        ])
+      }),
+      _vm._v(" "),
+      _c("input", { attrs: { type: "button", value: "Display data" } })
+    ],
+    2
+  )
 }
 var staticRenderFns = [
   function() {
@@ -664,44 +716,36 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("div", [
-        _c("h3", [_vm._v("Author:")]),
-        _vm._v(" "),
-        _c("label", [_vm._v("Author´s name")]),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "text" } }),
-        _c("br"),
-        _vm._v(" "),
-        _c("label", [_vm._v("Date of borth")]),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "text" } }),
-        _c("br"),
-        _vm._v(" "),
-        _c("label", [_vm._v("Address")]),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "text" } }),
-        _c("br"),
-        _vm._v(" "),
-        _c("h3", [_vm._v("Book:")]),
-        _vm._v(" "),
-        _c("label", [_vm._v("Book´s name")]),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "text" } }),
-        _c("br"),
-        _vm._v(" "),
-        _c("label", [_vm._v("Release date")]),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "text" } }),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "button", value: "Add" } })
-      ]),
+      _c("h3", [_vm._v("Author:")]),
       _vm._v(" "),
-      _c("div", [
-        _c("h3", [_vm._v("Data:")]),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "button", value: "Display data" } })
-      ])
+      _c("label", [_vm._v("Author´s name")]),
+      _vm._v(" "),
+      _c("input", { attrs: { type: "text" } }),
+      _c("br"),
+      _vm._v(" "),
+      _c("label", [_vm._v("Date of borth")]),
+      _vm._v(" "),
+      _c("input", { attrs: { type: "text" } }),
+      _c("br"),
+      _vm._v(" "),
+      _c("label", [_vm._v("Address")]),
+      _vm._v(" "),
+      _c("input", { attrs: { type: "text" } }),
+      _c("br"),
+      _vm._v(" "),
+      _c("h3", [_vm._v("Book:")]),
+      _vm._v(" "),
+      _c("label", [_vm._v("Book´s name")]),
+      _vm._v(" "),
+      _c("input", { attrs: { type: "text" } }),
+      _c("br"),
+      _vm._v(" "),
+      _c("label", [_vm._v("Release date")]),
+      _vm._v(" "),
+      _c("input", { attrs: { type: "text" } }),
+      _c("br"),
+      _vm._v(" "),
+      _c("input", { attrs: { type: "button", value: "Add" } })
     ])
   }
 ]

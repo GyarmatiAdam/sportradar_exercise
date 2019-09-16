@@ -16,7 +16,7 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        $authors = Authors::paginate(10);
+        $authors = Authors::paginate(5);
 
         return AuthorsResource::collection($authors);
     }
@@ -40,7 +40,7 @@ class AuthorsController extends Controller
     public function store(Request $request)
     {
         $author = $request->isMethod('put') 
-        ? Authors::findOrFail($request->id) 
+        ? Authors::findOrFail($request->author_id) 
         : new Authors;
 
         $author->id = $request->input('id');
