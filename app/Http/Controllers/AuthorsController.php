@@ -16,7 +16,7 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        $authors = Authors::paginate(5);
+        $authors = Authors::orderBy('name', 'ASC')->paginate(3);
 
         return AuthorsResource::collection($authors);
     }

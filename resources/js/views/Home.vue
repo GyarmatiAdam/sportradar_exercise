@@ -1,27 +1,39 @@
 <template>
     <div>
-        <div>
-            <h3>Author:</h3>
-            <label>Author´s name</label>
-            <input type="text"><br>
-            <label>Date of borth</label>
-            <input type="text"><br>
-            <label>Address</label>
-            <input type="text"><br>
-            <h3>Book:</h3>
-            <label>Book´s name</label>
-            <input type="text"><br>
-            <label>Release date</label>
-            <input type="text"><br>
-            <input type="button" value="Add">
+        <form @submit.prevent="addAuthor">
+            <div class="form-group">
+                <label>Author's Name</label>
+                <input v-model="author.name" type="text" class="form-control" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+                <label>Author's birthday</label>
+                <input v-model="author.date_of_birth" type="date" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Author's address</label>
+                <input v-model="author.address" type="text" class="form-control" placeholder="Enter address">
+            </div>
+            <button type="submit" class="btn btn-block btn-primary">Add</button>
+        </form>
+
+        <h3>Authors</h3><br>       
+        <nav id="authors">
+            <ul class="pagination">
+                <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item">
+                    <a class="page-link" href="#authors" @click="fetchAuthors(pagination.prev_page_url)">Previous</a>
+                </li>
+                <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item">
+                    <a class="page-link" href="#authors" @click="fetchAuthors(pagination.next_page_url)">Next</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="card" v-for="author in authors" v-bind:key="author.id">
+            <div class="card-body">
+                <h5 class="card-title">{{ author.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ author.date_of_birth }}</h6>
+                <p class="card-text">{{ author.address }}</p>
+            </div>
         </div>
-        <h3>Data:</h3>
-        <div v-for="author in authors" v-bind:key="author.id">
-            <h6>{{ author.name }}</h6>
-            <p>{{ author.address }}</p>
-            <p>{{ author.date_of_birth }}</p>
-        </div>
-        <input type="button" value="Display data">
     </div>
 </template>
 
@@ -47,12 +59,42 @@ export default {
     },
 
     methods: {
-        fetchAuthors() {
-            fetch('api/authors')
+        fetchAuthors(page_url) {
+            let vm =this;
+            page_url = page_url || 'api/authors'
+            fetch(page_url)
             .then(res => res.json())
             .then(res => {
                 this.authors = res.data;
-            });
+                vm.makepagination(res.data, res.links);
+            })
+            .catch(err => console.log(err));
+        },
+        makepagination(meta, links) {
+            let pagination = {
+                next_page_url: links.next,
+                prev_page_url: links.prev
+            };
+
+            this.pagination = pagination;
+        },
+        addAuthor() {
+                fetch('api/author', {
+                    method: 'post',
+                    body: JSON.stringify(this.author),
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    this.author.name = '';
+                    this.author.date_of_birth = '';
+                    this.author.address = '';
+                    alert('Author added');
+                    this.fetchAuthors();
+                })
+                .catch(err => alert(err));
         }
     }
 };
