@@ -23,4 +23,12 @@ class AuthorsTest extends TestCase
 
         $this->assertDatabaseHas('authors', $attributes);
     }
+
+    public function testIfDataReturnOnJsonGetRequest()
+    {
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
+    }
+
 }

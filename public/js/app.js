@@ -135,6 +135,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -658,36 +664,44 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("h3", [_vm._v("Author:")]),
+      _c("div", [
+        _c("h3", [_vm._v("Author:")]),
+        _vm._v(" "),
+        _c("label", [_vm._v("Author´s name")]),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "text" } }),
+        _c("br"),
+        _vm._v(" "),
+        _c("label", [_vm._v("Date of borth")]),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "text" } }),
+        _c("br"),
+        _vm._v(" "),
+        _c("label", [_vm._v("Address")]),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "text" } }),
+        _c("br"),
+        _vm._v(" "),
+        _c("h3", [_vm._v("Book:")]),
+        _vm._v(" "),
+        _c("label", [_vm._v("Book´s name")]),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "text" } }),
+        _c("br"),
+        _vm._v(" "),
+        _c("label", [_vm._v("Release date")]),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "text" } }),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "button", value: "Add" } })
+      ]),
       _vm._v(" "),
-      _c("label", [_vm._v("Author´s name")]),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "text" } }),
-      _c("br"),
-      _vm._v(" "),
-      _c("label", [_vm._v("Date of borth")]),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "text" } }),
-      _c("br"),
-      _vm._v(" "),
-      _c("label", [_vm._v("Address")]),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "text" } }),
-      _c("br"),
-      _vm._v(" "),
-      _c("h3", [_vm._v("Book:")]),
-      _vm._v(" "),
-      _c("label", [_vm._v("Book´s name")]),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "text" } }),
-      _c("br"),
-      _vm._v(" "),
-      _c("label", [_vm._v("Release date")]),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "text" } }),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "button", value: "Add" } })
+      _c("div", [
+        _c("h3", [_vm._v("Data:")]),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "button", value: "Display data" } })
+      ])
     ])
   }
 ]
