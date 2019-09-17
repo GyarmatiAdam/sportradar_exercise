@@ -5,6 +5,7 @@ Vue.use(VueRouter)
 
 import App from './views/App'
 import Home from './views/Home'
+import Index from './views/Index'
 
 const router = new VueRouter({
     mode: 'history',
@@ -13,6 +14,11 @@ const router = new VueRouter({
             path: '/',
             name: 'home',
             component: Home
+        },
+        {
+            path: '/index',
+            name: 'index',
+            component: Index
         },
     ],
 });

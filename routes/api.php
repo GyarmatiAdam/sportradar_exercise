@@ -21,8 +21,10 @@ Route::get('authors', 'AuthorsController@index');
 
 Route::post('author', 'AuthorsController@store');
 
-Route::get('author/{id}', 'AuthorsController@show');
-
 Route::get('books', 'BooksController@index');
 
 Route::post('book', 'BooksController@store');
+
+Route::get('authors-books', 'AuthorsController@authorsWithBooks');
+
+Route::post('author-book', 'AuthorsController@authorWithBookStore');

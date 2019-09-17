@@ -15,29 +15,21 @@
             </div>
             <button type="submit" class="btn btn-block btn-primary">Add</button>
         </form>
-
-        <h3>Authors</h3><br>       
-        <nav id="authors">
-            <ul class="pagination">
-                <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item">
-                    <a class="page-link" href="#authors" @click="fetchAuthors(pagination.prev_page_url)">Previous</a>
-                </li>
-                <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item">
-                    <a class="page-link" href="#authors" @click="fetchAuthors(pagination.next_page_url)">Next</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="card" v-for="author in authors" v-bind:key="author.id">
-            <div class="card-body">
-                <h5 class="card-title">{{ author.name }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ author.date_of_birth }}</h6>
-                <p class="card-text">{{ author.address }}</p>
-            </div>
-        </div>
-        <div class="card" v-for="book in books" v-bind:key="book.id">
-            <div class="card-body">
-                <h5 class="card-title">{{ book.name }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ book.release_date }}</h6>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>Authors with books</h3><br>       
+                    <div class="card" v-for="author in authors" v-bind:key="author.id">
+                        <div class="card-body">
+                            <label>Author's name: </label>
+                            <h1 class="card-title">{{ author.name }}</h1>
+                            <label>Book title:</label>
+                            <div class="card" v-for="book in author.books" v-bind:key="book.id">
+                                <p class="card-body">{{ book.name }}</p>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -52,61 +44,30 @@ export default {
                 id: '',
                 name: '',
                 date_of_birth: '',
-                address: ''
+                address: '',
+                books: [],
+                book: {
+                    id: '',
+                    name: '',
+                    release_date: '',
+                    authors_id: ''
+                },
             },
             author_id: '',
-            pagination: {},
-            edit: false
-        };
-        return {
-            books: [],
-            book: {
-                id: '',
-                name: '',
-                release_date: '',
-                authors_id: ''
-            },
-            book_id: '',
-            pagination: {},
-            edit: false
         };
     },
 
     created() {
-        this.fetchAuthors();
-        this.fetchBooks();
+        this.fetchAuthorsWithBooks();
     },
 
     methods: {
-        fetchAuthors(page_url) {
-            let vm =this;
-            page_url = page_url || 'api/authors'
-            fetch(page_url)
+        fetchAuthorsWithBooks() {
+            fetch('api/authors-books')
             .then(res => res.json())
             .then(res => {
-                this.authors = res.data;
-                vm.makepagination(res.data, res.links);
-            })
-            .catch(err => console.log(err));
-        },
-        fetchBooks(page_url) {
-            let vm =this;
-            page_url = page_url || 'api/books'
-            fetch(page_url)
-            .then(res => res.json())
-            .then(res => {
-                this.books = res.data;
-                vm.makepagination(res.data, res.links);
-            })
-            .catch(err => console.log(err));
-        },
-        makepagination(meta, links) {
-            let pagination = {
-                next_page_url: links.next,
-                prev_page_url: links.prev
-            };
-
-            this.pagination = pagination;
+                this.authors = res;
+            });
         },
         addAuthor() {
                 fetch('api/author', {
@@ -122,7 +83,7 @@ export default {
                     this.author.date_of_birth = '';
                     this.author.address = '';
                     alert('Author added');
-                    this.fetchAuthors();
+                    this.fetchAuthorsWithBooks();
                 })
                 .catch(err => alert(err));
         }

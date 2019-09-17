@@ -16,7 +16,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $books = Books::paginate(5);
+        $books = Books::paginate(4);
         return BooksResource::collection($books);
     }
 

@@ -10,6 +10,6 @@ class Authors extends Model
     
     public function books()
     {
-        return $this->hasMany(Books::class);
+        return $this->hasMany(Books::class, 'authors_id');
     }
 }

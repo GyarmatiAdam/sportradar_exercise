@@ -21,6 +21,19 @@ class AuthorsController extends Controller
         return AuthorsResource::collection($authors);
     }
 
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function authorsWithBooks()
+    {
+        $authors= Authors::with('books')
+        ->orderBy('name', 'ASC')
+        ->get();
+        return $authors;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -29,6 +42,29 @@ class AuthorsController extends Controller
     public function create()
     {
         //
+    }
+    
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function authorWithBookStore(Request $request)
+    {
+        $author = $request->isMethod('put') 
+        ? Authors::findOrFail($request->author_id) 
+        : new Authors;
+
+        $author->id = $request->input('id');
+        $author->name = $request->input('name');
+        $author->date_of_birth = $request->input('date_of_birth');
+        $author->address = $request->input('address');
+
+        if($author->save()) {
+            return new AuthorsResource($author);
+        }
+
     }
 
     /**
