@@ -18,7 +18,7 @@ class CreateBooksTable extends Migration
             $table->unsignedBigInteger('authors_id')->nullable();
             $table->foreign('authors_id')->references('id')->on('authors'); 
             $table->string('name', 155);
-            $table->date('release_date');
+            $table->date('release_date')->nullable();
             $table->timestamps(); 
         });
     }

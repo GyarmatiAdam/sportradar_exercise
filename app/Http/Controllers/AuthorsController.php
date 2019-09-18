@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Authors;
 use App\Http\Resources\Authors as AuthorsResource;
+use App\Books;
 
 class AuthorsController extends Controller
 {
@@ -52,18 +53,35 @@ class AuthorsController extends Controller
      */
     public function authorWithBookStore(Request $request)
     {
+        // $this->validate($request, [
+        //     'name' => 'required',
+        //     'date_of_birth' => 'required',
+        //     'address' => 'required',
+        //     // 'name' => 'required',
+        //     'release_date' => 'required'
+        // ]);
+
         $author = $request->isMethod('put') 
         ? Authors::findOrFail($request->author_id) 
         : new Authors;
 
         $author->id = $request->input('id');
-        $author->name = $request->input('name');
+        $author->name = $request->input('author_name');
         $author->date_of_birth = $request->input('date_of_birth');
         $author->address = $request->input('address');
 
-        if($author->save()) {
-            return new AuthorsResource($author);
-        }
+        $result_author= $author->save();
+            
+        $book = $request->isMethod('put') 
+        ? Books::findOrFail($request->book_id) 
+        : new Books;
+
+        $book->id = $request->input('id');
+        $book->name = $request->input('book_name');
+        $book->authors_id = $author->id;
+        $book->release_date = $request->input('release_date');
+        
+        $result_book= $book->save();
 
     }
 

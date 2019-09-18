@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit.prevent="addAuthor">
+        <form @submit.prevent="addAuthorWithBook">
             <div class="form-group">
                 <label>Author's Name</label>
                 <input v-model="author.name" type="text" class="form-control" placeholder="Enter name">
@@ -12,6 +12,14 @@
             <div class="form-group">
                 <label>Author's address</label>
                 <input v-model="author.address" type="text" class="form-control" placeholder="Enter address">
+            </div>
+             <div class="form-group">
+                <label>Book's name</label>
+                <input v-model="author.book.name" type="text" class="form-control" placeholder="Enter book's name">
+            </div>
+            <div class="form-group">
+                <label>Release date</label>
+                <input v-model="author.book.release_date" type="date" class="form-control">
             </div>
             <button type="submit" class="btn btn-block btn-primary">Add</button>
         </form>
@@ -69,8 +77,8 @@ export default {
                 this.authors = res;
             });
         },
-        addAuthor() {
-                fetch('api/author', {
+        addAuthorWithBook() {
+                fetch('api/author-book', {
                     method: 'post',
                     body: JSON.stringify(this.author),
                     headers: {
@@ -82,10 +90,12 @@ export default {
                     this.author.name = '';
                     this.author.date_of_birth = '';
                     this.author.address = '';
-                    alert('Author added');
+                    this.author.book.name = '';
+                    this.author.book.release_date = '';
+                    alert('Author with book added');
                     this.fetchAuthorsWithBooks();
                 })
-                .catch(err => alert(err));
+                .catch(err => console.log(err));
         }
     }
 };
