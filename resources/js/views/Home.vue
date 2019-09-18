@@ -26,15 +26,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <h3>Authors with books</h3><br>       
-                    <div class="card" v-for="author in authors" v-bind:key="author.id">
-                        <div class="card-body">
-                            <label>Author's name: </label>
-                            <h1 class="card-title">{{ author.name }}</h1>
-                            <label>Book title:</label>
-                            <div class="card" v-for="book in author.books" v-bind:key="book.id">
-                                <p class="card-body">{{ book.name }}</p>
-                            </div> 
+                    <h3>Authors with books</h3><br> 
+                    <button @click="showData()">Show data</button>
+                    <div v-if="displayData">      
+                        <div class="card" v-for="author in authors" v-bind:key="author.id">
+                            <div class="card-body">
+                                <label>Author's name: </label>
+                                <h1 class="card-title">{{ author.name }}</h1>
+                                <label>Book title:</label>
+                                <div class="card" v-for="book in author.books" v-bind:key="book.id">
+                                    <p class="card-body">{{ book.name }}</p>
+                                </div> 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,6 +65,7 @@ export default {
                 },
             },
             author_id: '',
+            displayData: false
         };
     },
 
@@ -70,6 +74,9 @@ export default {
     },
 
     methods: {
+        showData() {
+            this.displayData = !this.displayData;
+        },
         fetchAuthorsWithBooks() {
             fetch('api/authors-books')
             .then(res => res.json())

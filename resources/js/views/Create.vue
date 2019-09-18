@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit.prevent="validateInputs" action="/" method="post">
+        <form>
             <div class="form-group">
                 <label>Author's Name</label>
                 <input id="aut_name" name="aut_name" v-model="author.name" type="text" class="form-control" placeholder="Enter name">
@@ -21,8 +21,14 @@
                 <label>Release date</label>
                 <input id="book_date" name="book_date" v-model="book.release_date" type="date" class="form-control">
             </div>
-            <div class="error-messages">
-            {{ errors.get('address') }}
+            <div v-if="errors && errors.address" class="error-messages">
+            <h6>{{ errors.address[0] }}</h6>
+            </div>
+            <div v-if="errors && errors.book_name" class="error-messages">
+            <h6>{{ errors.book_name[0] }}</h6>
+            </div>
+            <div v-if="validation" v-for="message in validation" class="error-messages">
+            <h6>{{ message }}</h6>
             </div>
             <button v-on:click.prevent="post" type="submit" class="btn btn-block btn-primary">Add</button>
             <!-- <p v-if="errors && errors.length">
@@ -42,26 +48,10 @@
 
 <script>
 
-class Errors{
-    constructor(){
-        this.errors = {};
-    }
-
-    get(field){
-        if(this.errors[field]){
-            return this.errors[field][0];
-        }
-    }
-
-    record(errors){
-        this.errors = errors.errors;
-    }
-}
-
 export default {
     data(){
         return {
-           author:{ 
+            author:{ 
                name:"", 
                date_of_birth:"", 
                address:"" 
@@ -70,7 +60,8 @@ export default {
                 name:"",
                 release_date:""
             },
-            errors: new Errors()
+            errors: null,
+            validation: [],
             //errors: [],
             // error:{
             //     aut_name: null,
@@ -83,25 +74,43 @@ export default {
     },
 
     methods:{
-        post:function(){
-            this.$http.post('api/author-book',{
-                    author_name:this.author.name,
-                    date_of_birth:this.author.date_of_birth,                
-                    address:this.author.address,
-                    book_name:this.book.name,
-                    release_date:this.book.release_date
+        post(){
+            this.validateInputs();
+            if (this.validation.length) {
+                return;
+            }
 
-            }).then(function(data){
-                console.log(data);
+            this.$http.post('api/author-book',
+            {
+                author_name:this.author.name,
+                date_of_birth:this.author.date_of_birth,                
+                address:this.author.address,
+                book_name:this.book.name,
+                release_date:this.book.release_date
+            }
+            ).then(data => {
+                //console.log("hello");
+            }, (response) => {
+               this.errors = response.body.errors;
             })
                 this.author.name ="",
                 this.author.date_of_birth ="",                
                 this.author.address ="",
                 this.book.name ="",
                 this.book.release_date =""
-            .catch(error => this.errors.record(error.response.data));
+            // .catch((error) => {
+            //    // console.log(error.response.data);
+            //     this.errors.record(error.response.data);
+            // })
         },
-         validateInputs: function (e) {
+         validateInputs() {
+             if (this.book.name) {
+                 return true;
+             }
+
+              if (!this.book.name) {
+                 this.validation.push('Book name required!');
+             }
         //     if (this.aut_name && this.aut_birth && 
         //         this.aut_addr && this.book_name && 
         //         this.book_date)

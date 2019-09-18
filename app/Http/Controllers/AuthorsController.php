@@ -51,15 +51,15 @@ class AuthorsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function authorWithBookStore(Request $request)
+    public function storeAuthorWithBooks(Request $request)
     {
-        // $this->validate($request, [
-        //     'name' => 'required',
-        //     'date_of_birth' => 'required',
-        //     'address' => 'required',
-        //     // 'name' => 'required',
-        //     'release_date' => 'required'
-        // ]);
+        $this->validate($request, [
+            'author_name' => 'required',
+            'date_of_birth' => 'required',
+            'address' => 'required',
+            'book_name' => 'required',
+            'release_date' => 'required'
+        ]);
 
         $author = $request->isMethod('put') 
         ? Authors::findOrFail($request->author_id) 
@@ -70,7 +70,7 @@ class AuthorsController extends Controller
         $author->date_of_birth = $request->input('date_of_birth');
         $author->address = $request->input('address');
 
-        $result_author= $author->save();
+        $author->save();
             
         $book = $request->isMethod('put') 
         ? Books::findOrFail($request->book_id) 
@@ -81,7 +81,7 @@ class AuthorsController extends Controller
         $book->authors_id = $author->id;
         $book->release_date = $request->input('release_date');
         
-        $result_book= $book->save();
+        $book->save();
 
     }
 

@@ -27,4 +27,4 @@ Route::post('book', 'BooksController@store');
 
 Route::get('authors-books', 'AuthorsController@authorsWithBooks');
 
-Route::post('author-book', 'AuthorsController@authorWithBookStore');
+Route::post('author-book', 'AuthorsController@storeAuthorWithBooks');
