@@ -22,27 +22,18 @@
                 <input id="book_date" name="book_date" v-model="book.release_date" type="date" class="form-control">
             </div>
             <div v-if="errors && errors.address" class="error-messages">
-            <h6>{{ errors.address[0] }}</h6>
+                <h6>{{ errors.address[0] }}</h6>
             </div>
             <div v-if="errors && errors.book_name" class="error-messages">
-            <h6>{{ errors.book_name[0] }}</h6>
+                <h6>{{ errors.book_name[0] }}</h6>
             </div>
-            <div v-if="validation" v-for="message in validation" class="error-messages">
-            <h6>{{ message }}</h6>
+            <div v-if="validation">
+                <div v-for="message in validation" v-bind:key="message" class="error-messages">
+                    <h6>{{ message }}</h6>
+                </div>
             </div>
             <button v-on:click.prevent="post" type="submit" class="btn btn-block btn-primary">Add</button>
-            <!-- <p v-if="errors && errors.length">
-                <b>Please correct the following error(s):</b>
-                <ul>
-                <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-                </ul>
-            </p> -->
         </form>
-        <h1>{{ author.name }}</h1>
-        <h1>{{ author.date_of_birth }}</h1>
-        <h1>{{ author.address }}</h1>
-        <h1>{{ book.name }}</h1>
-        <h1>{{ book.release_date }}</h1>
     </div>
 </template>
 

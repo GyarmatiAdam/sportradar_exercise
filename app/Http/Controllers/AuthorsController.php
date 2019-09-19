@@ -7,6 +7,8 @@ use App\Http\Requests;
 use App\Authors;
 use App\Http\Resources\Authors as AuthorsResource;
 use App\Books;
+use Illuminate\Support\Facades\DB;
+
 
 class AuthorsController extends Controller
 {
@@ -29,12 +31,15 @@ class AuthorsController extends Controller
      */
     public function authorsWithBooks()
     {
-        $authors= Authors::with('books')
+
+        $authors = Authors::with('books')
+        ->select('id', 'address', 'name', DB::raw("TIMESTAMPDIFF(YEAR, DATE(date_of_birth), current_date) AS age"))
         ->orderBy('name', 'ASC')
         ->get();
+
         return $authors;
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
