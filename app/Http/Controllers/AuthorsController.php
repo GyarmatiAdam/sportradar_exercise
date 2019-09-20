@@ -87,7 +87,6 @@ class AuthorsController extends Controller
         $book->release_date = $request->input('release_date');
         
         $book->save();
-
     }
 
     /**
@@ -98,19 +97,7 @@ class AuthorsController extends Controller
      */
     public function store(Request $request)
     {
-        $author = $request->isMethod('put') 
-        ? Authors::findOrFail($request->author_id) 
-        : new Authors;
-
-        $author->id = $request->input('id');
-        $author->name = $request->input('name');
-        $author->date_of_birth = $request->input('date_of_birth');
-        $author->address = $request->input('address');
-
-        if($author->save()) {
-            return new AuthorsResource($author);
-        }
-
+        
     }
 
     /**

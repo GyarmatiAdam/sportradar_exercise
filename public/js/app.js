@@ -134,6 +134,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -147,15 +173,7 @@ __webpack_require__.r(__webpack_exports__);
         release_date: ""
       },
       errors: null,
-      validation: [] //errors: [],
-      // error:{
-      //     aut_name: null,
-      //     aut_birth: null,
-      //     aut_addr: null,
-      //     book_name: null,
-      //     book_date: null 
-      // }
-
+      validation: []
     };
   },
   methods: {
@@ -174,46 +192,56 @@ __webpack_require__.r(__webpack_exports__);
         address: this.author.address,
         book_name: this.book.name,
         release_date: this.book.release_date
-      }).then(function (data) {//console.log("hello");
+      }).then(function (data) {
+        Swal.fire({
+          position: 'center',
+          type: 'success',
+          title: 'Hooray...Success!!!',
+          showConfirmButton: false,
+          timer: 2600
+        });
       }, function (response) {
+        Swal.fire({
+          type: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+          showConfirmButton: false,
+          timer: 2600
+        });
         _this.errors = response.body.errors;
       });
-      this.author.name = "", this.author.date_of_birth = "", this.author.address = "", this.book.name = "", this.book.release_date = ""; // .catch((error) => {
-      //    // console.log(error.response.data);
-      //     this.errors.record(error.response.data);
-      // })
+      this.author.name = "", this.author.date_of_birth = "", this.author.address = "", this.book.name = "", this.book.release_date = "";
     },
     validateInputs: function validateInputs() {
       if (this.book.name) {
         return true;
+      } else {
+        this.validation.push('Please enter book name!');
       }
 
-      if (!this.book.name) {
-        this.validation.push('Book name required!');
-      } //     if (this.aut_name && this.aut_birth && 
-      //         this.aut_addr && this.book_name && 
-      //         this.book_date)
-      //     {
-      //         return true;
-      //     }
-      //     this.errors = [];
-      //     if (!this.aut_name) {
-      //         this.errors.push('Author name required.');
-      //     }
-      //     if (!this.aut_birth) {
-      //         this.errors.push('Date of birth required.');
-      //     }
-      //     if (!this.aut_addr) {
-      //         this.errors.push('Address required.');
-      //     }
-      //     if (!this.book_name) {
-      //         this.errors.push('Book name required.');
-      //     }
-      //     if (!this.book_date) {
-      //         this.errors.push('Release date required.');
-      //     }
-      //     e.preventDefault();
+      if (this.book.release_date) {
+        return true;
+      } else {
+        this.validation.push('Please enter release date!');
+      }
 
+      if (this.author.name) {
+        return true;
+      } else {
+        this.validation.push('Please enter author name!');
+      }
+
+      if (this.book.address) {
+        return true;
+      } else {
+        this.validation.push('Please enter address!');
+      }
+
+      if (this.book.date_of_birth) {
+        return true;
+      } else {
+        this.validation.push('Please enter date of birth!');
+      }
     }
   }
 });
@@ -229,6 +257,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -1001,196 +1031,249 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("form", [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", [_vm._v("Author's Name")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.author.name,
-              expression: "author.name"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: {
-            id: "aut_name",
-            name: "aut_name",
-            type: "text",
-            placeholder: "Enter name"
-          },
-          domProps: { value: _vm.author.name },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.author, "name", $event.target.value)
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", [_vm._v("Author's birthday")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.author.date_of_birth,
-              expression: "author.date_of_birth"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { id: "aut_birth", name: "aut_birth", type: "date" },
-          domProps: { value: _vm.author.date_of_birth },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.author, "date_of_birth", $event.target.value)
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", [_vm._v("Author's address")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.author.address,
-              expression: "author.address"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: {
-            id: "aut_addr",
-            name: "aut_addr",
-            type: "text",
-            placeholder: "Enter address"
-          },
-          domProps: { value: _vm.author.address },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.author, "address", $event.target.value)
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", [_vm._v("Book's name")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.book.name,
-              expression: "book.name"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: {
-            id: "book_name",
-            name: "book_name",
-            type: "text",
-            placeholder: "Enter book's name"
-          },
-          domProps: { value: _vm.book.name },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.book, "name", $event.target.value)
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", [_vm._v("Release date")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.book.release_date,
-              expression: "book.release_date"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { id: "book_date", name: "book_date", type: "date" },
-          domProps: { value: _vm.book.release_date },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.book, "release_date", $event.target.value)
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _vm.errors && _vm.errors.address
-        ? _c("div", { staticClass: "error-messages" }, [
-            _c("h6", [_vm._v(_vm._s(_vm.errors.address[0]))])
+    _c("div", { staticClass: "container mt-5 mb-5" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-sm-12" }, [
+          _c(
+            "h1",
+            { staticClass: "text-center " },
+            [
+              _c("router-link", { attrs: { to: { name: "home" } } }, [
+                _vm._v("HOME")
+              ]),
+              _vm._v(" "),
+              _c("router-link", { attrs: { to: { name: "create" } } }, [
+                _vm._v("CREATE")
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _c("form", [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Author's Name")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.author.name,
+                    expression: "author.name"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  id: "aut_name",
+                  name: "aut_name",
+                  type: "text",
+                  placeholder: "Enter name"
+                },
+                domProps: { value: _vm.author.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.author, "name", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Author's birthday")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.author.date_of_birth,
+                    expression: "author.date_of_birth"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { id: "aut_birth", name: "aut_birth", type: "date" },
+                domProps: { value: _vm.author.date_of_birth },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.author, "date_of_birth", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Author's address")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.author.address,
+                    expression: "author.address"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  id: "aut_addr",
+                  name: "aut_addr",
+                  type: "text",
+                  placeholder: "Enter address"
+                },
+                domProps: { value: _vm.author.address },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.author, "address", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Book's name")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.book.name,
+                    expression: "book.name"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  id: "book_name",
+                  name: "book_name",
+                  type: "text",
+                  placeholder: "Enter book's name"
+                },
+                domProps: { value: _vm.book.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.book, "name", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Release date")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.book.release_date,
+                    expression: "book.release_date"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { id: "book_date", name: "book_date", type: "date" },
+                domProps: { value: _vm.book.release_date },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.book, "release_date", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _vm.errors && _vm.errors.address
+              ? _c("div", { staticClass: "alert alert-danger" }, [
+                  _c("h6", [_vm._v(_vm._s(_vm.errors.address[0]))])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.errors && _vm.errors.author_name
+              ? _c("div", { staticClass: "alert alert-danger" }, [
+                  _c("h6", [_vm._v(_vm._s(_vm.errors.author_name[0]))])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.errors && _vm.errors.date_of_birth
+              ? _c("div", { staticClass: "alert alert-danger" }, [
+                  _c("h6", [_vm._v(_vm._s(_vm.errors.date_of_birth[0]))])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.errors && _vm.errors.book_name
+              ? _c("div", { staticClass: "alert alert-danger" }, [
+                  _c("h6", [_vm._v(_vm._s(_vm.errors.book_name[0]))])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.errors && _vm.errors.release_date
+              ? _c("div", { staticClass: "alert alert-danger" }, [
+                  _c("h6", [_vm._v(_vm._s(_vm.errors.release_date[0]))])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.validation
+              ? _c(
+                  "div",
+                  _vm._l(_vm.validation, function(message) {
+                    return _c(
+                      "div",
+                      { key: message, staticClass: "alert alert-danger" },
+                      [_c("h6", [_vm._v(_vm._s(message))])]
+                    )
+                  }),
+                  0
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-block btn-primary",
+                attrs: { type: "submit" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.post($event)
+                  }
+                }
+              },
+              [_vm._v("Add")]
+            )
           ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.errors && _vm.errors.book_name
-        ? _c("div", { staticClass: "error-messages" }, [
-            _c("h6", [_vm._v(_vm._s(_vm.errors.book_name[0]))])
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.validation
-        ? _c(
-            "div",
-            _vm._l(_vm.validation, function(message) {
-              return _c(
-                "div",
-                { key: message, staticClass: "error-messages" },
-                [_c("h6", [_vm._v(_vm._s(message))])]
-              )
-            }),
-            0
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-block btn-primary",
-          attrs: { type: "submit" },
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.post($event)
-            }
-          }
-        },
-        [_vm._v("Add")]
-      )
+        ])
+      ])
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-header text-center mt-5 mb-5" }, [
+        _c("h3", [_vm._v("You can insert new data here")]),
+        _c("br")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -1212,15 +1295,30 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
+  return _c("div", { staticClass: "container mt-5 mb-5" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-sm-12" }, [
-        _c("h3", [_vm._v("Authors with books")]),
-        _c("br"),
+        _c(
+          "h1",
+          { staticClass: "text-center " },
+          [
+            _c("router-link", { attrs: { to: { name: "home" } } }, [
+              _vm._v("HOME")
+            ]),
+            _vm._v(" "),
+            _c("router-link", { attrs: { to: { name: "create" } } }, [
+              _vm._v("CREATE")
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._m(0),
         _vm._v(" "),
         _c(
           "button",
           {
+            staticClass: "btn btn-block btn-primary",
             on: {
               click: function($event) {
                 return _vm.showData()
@@ -1229,60 +1327,63 @@ var render = function() {
           },
           [_vm._v("Show/Hide data")]
         ),
+        _c("br"),
         _vm._v(" "),
         _vm.displayData
           ? _c(
               "div",
               _vm._l(_vm.authors, function(author) {
-                return _c("div", { key: author.id, staticClass: "card" }, [
-                  _c(
-                    "div",
-                    { staticClass: "card-body" },
-                    [
-                      _c("h1", { staticClass: "card-title" }, [
-                        _c("small", [
-                          _vm._v("Name:" + _vm._s(author.name) + " ")
+                return _c(
+                  "div",
+                  { key: author.id, staticClass: "card  mt-5 mb-5" },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "card-body alert-info text-center" },
+                      [
+                        _c("div", { staticClass: "card-title" }, [
+                          _c("h1", [
+                            _vm._v("Name: " + _vm._s(author.name) + " ")
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v("(Address: " + _vm._s(author.address) + " )")
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v("(age: " + _vm._s(author.age) + " )")
+                          ])
                         ]),
                         _vm._v(" "),
-                        _c("small", [
-                          _vm._v(
-                            "\n                                (Address: " +
-                              _vm._s(author.address) +
-                              ")\n                                (age:" +
-                              _vm._s(author.age) +
-                              ")\n                            "
+                        _vm._l(author.books, function(book) {
+                          return _c(
+                            "div",
+                            { key: book.id, staticClass: "card mt-2 mb-2" },
+                            [
+                              _c(
+                                "h5",
+                                { staticClass: "card-body  alert-secondary" },
+                                [
+                                  _c("small", [_vm._v("Title: ")]),
+                                  _vm._v(_vm._s(book.name))
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("small", [
+                                _vm._v(
+                                  "(Released at: " +
+                                    _vm._s(book.release_date) +
+                                    ")"
+                                )
+                              ])
+                            ]
                           )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(author.books, function(book) {
-                        return _c(
-                          "div",
-                          { key: book.id, staticClass: "card" },
-                          [
-                            _c("p", { staticClass: "card-body" }, [
-                              _c("small", [_vm._v("Title: ")]),
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(book.name) +
-                                  "\n                            "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("small", [
-                              _vm._v(
-                                "(Released at: " +
-                                  _vm._s(book.release_date) +
-                                  ")"
-                              )
-                            ])
-                          ]
-                        )
-                      })
-                    ],
-                    2
-                  )
-                ])
+                        })
+                      ],
+                      2
+                    )
+                  ]
+                )
               }),
               0
             )
@@ -1291,7 +1392,19 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-header text-center mt-5 mb-5" }, [
+        _c("h3", [_vm._v("All authors with their books are here:")]),
+        _c("br")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
